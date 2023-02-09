@@ -20,7 +20,9 @@ def main():
                 if choice == 1:
                     message = (input('Enter a message:'))
                     # Encrypt and send message
+                    print(encryptMessage(message))
                     print('Encryption complete. Message sent')
+                    
                     choice = 1
                 elif choice == 2:
                     #if #ofMessages == 0 
@@ -89,5 +91,14 @@ def genKeyFiles(name, keySize):
     fo = open('%s_privatekey.txt' % (name), 'w')
     fo.write('%s,%s,%s' % (keySize, privateKey[0], privateKey[1]))
     fo.close()
+    
+def encryptMessage(message):
+    fo = open('New Keys_publickey.txt' , 'r')
+    values = fo.readline().strip().split(',')
+    n = values[0]
+    e = values[1]
+    cypher = pow(int.from_bytes(bytes(message,"utf-8"),"big"), int(e), int(n))
+    return cypher
+    
 
 main()
