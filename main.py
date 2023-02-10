@@ -97,8 +97,21 @@ def encryptMessage(message):
     values = fo.readline().strip().split(',')
     n = values[0]
     e = values[1]
-    cypher = pow(int.from_bytes(bytes(message,"utf-8"),"big"), int(e), int(n))
+    cypher= []
+    for x in range(len(message)):
+        to_cypher = pow(ord(message[x]), int(e), int(n))
+        cypher.append(to_cypher)
     return cypher
     
+def decryptMessage(cypher):
+    fo = open('New Keys_privatekey.txt' , 'r')
+    values = fo.readline().strip().split(',')
+    n = values[0]
+    d = values[1]
+    message =[]
+    for x in range(len(cypher)):
+        to_message= pow((message[x]), int(d), int(n))
+        message.append(chr(to_message))
+    return message
 
 main()
