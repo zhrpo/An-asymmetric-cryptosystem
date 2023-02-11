@@ -3,10 +3,24 @@ import math, random, os, sys, testPrime
 # Extended Euclidean Algorithm
 # Time Complexity: O(log(max(A,B)))
 def egcd(a, b):
-    if a == 0:
-        return (b, 0, 1)
-    (g, y, x) = egcd(b % a, a)
-    return (g, x - (b // a) * y, y)
+    x = 0
+    y = 1
+    lx = 1
+    ly = 0
+    oa = a
+    ob = b
+
+    while b != 0:
+        q = a // b
+        q = a // b
+        (a, b) = (b, a % b)
+        (x, lx) = ((lx - (q * x)), x)
+        (y, ly) = ((ly - (q * y)), y)
+    if lx < 0:
+        lx += ob
+    if ly < 0:
+        ly += oa
+    return a, lx, ly
 
 # Modular inverse
 def modInv(a,m):
@@ -21,10 +35,13 @@ def genKey(keySize, acc):
     p = testPrime.generateLargePrime(keySize, acc)
     q = testPrime.generateLargePrime(keySize, acc)
     n = p * q
+    e = 65537
     while True:
-        e = random.randrange(2 ** (keySize - 1), 2 ** (keySize))
+        
         if math.gcd(e, (p - 1) * (q - 1)) == 1:
             break
+        else:
+            e = e+1
     d = modInv(e, (p - 1) * (q - 1))
     publicKey = (n, e)
     privateKey = (n, d)

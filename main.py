@@ -22,7 +22,8 @@ while choice < 1 or choice > 3:
             if choice == 1: # Send and encrypted message
                 message = (input('Enter a message:'))
                 # Encrypt and send message
-                print(keyCrypt.encryptMessage(message))
+                print(message)
+                print(keyCrypt.encryptMessage(message.encode('utf-8')))
                 print('Encryption complete. Message sent')            
                 choice = 1
             elif choice == 2: # Authenticate a digital signature
@@ -45,11 +46,12 @@ while choice < 1 or choice > 3:
             print('5. Exit')
             choice = int(input('Enter Choice (1, 2, 3, 4, or 5): '))
             if choice == 1: # Decrypt a recieved message
-                message = 'Hello, world'
+                message = 'Hi'.encode('utf-8')
                 cypher = (keyCrypt.encryptMessage(message))
                 print(cypher)
                 #print(keyCrypt.decryptMessage(cypher))
-                print(keyCrypt.decryptMessage_t(cypher))
+                cypher = keyCrypt.decryptMessage(cypher)
+                print(cypher)
                 #if #ofencryptedmessages == 0 
                     #print('No messages to decrypt.')
                 #else
