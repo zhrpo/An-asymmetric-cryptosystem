@@ -1,10 +1,10 @@
-
+#DEPCRECATED
 # Return greatest common divisor of a and b
 def gcd(a, b):
     while a != 0:
         a, b = b % a, a
     return b
-    
+
 # Return modular inverse
 def modInverse(a,m):
     if gcd(a, m) != 1:

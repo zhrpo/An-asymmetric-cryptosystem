@@ -1,3 +1,4 @@
+#DEPCRECATED
 import random
 
 #The Miller Rabin is an algorithm used to test primality of large numbers.
@@ -24,6 +25,7 @@ def rabinMiller(num):
                     v = (v ** 2) % num
         return True
 
+
 # A quicker prime number check, but does not guarantee that number is prime
 def isPrime(num):
     if (num < 2):
@@ -39,6 +41,8 @@ def isPrime(num):
             return False
     
     return rabinMiller(num)
+
+
 
 # Returns a random prime number 
 def generateLargePrime(keysize):
