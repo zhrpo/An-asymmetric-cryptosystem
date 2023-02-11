@@ -1,5 +1,5 @@
-def encryptMessage(message):
-    fo = open('test_publickey.txt' , 'r')
+def encryptMessage(message, fileName):
+    fo = open(fileName , 'r')
     values = fo.readline().strip().split(',')
     n = values[1] # Changed because values[0] equals keySize
     e = values[2]
@@ -12,8 +12,8 @@ def encryptMessage(message):
     #return to_cypher
 
 # Copy of function above 
-def decryptMessage(choice):
-    fo = open('test_privatekey.txt' , 'r')
+def decryptMessage(choice, fileName):
+    fo = open(fileName , 'r')
     values = fo.readline().strip().split(',')
     n = values[1]
     d = values[2]

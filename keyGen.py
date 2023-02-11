@@ -48,12 +48,31 @@ def genKey(keySize, acc):
     return (publicKey, privateKey)
 
 # Generates files to store key pairs in
-def genKeyFiles(name, keySize, acc):
+def genKeyFiles(keySize, acc):
     publicKey, privateKey = genKey(keySize, acc)
-    fo = open('%s_publickey.txt' % (name), 'w')
+    fo = open('publickey.txt', 'w')
     fo.write('%s,%s,%s' % (keySize, publicKey[0], publicKey[1]))
     fo.close()
 
-    fo = open('%s_privatekey.txt' % (name), 'w')
+    fo = open('privatekey.txt', 'w')
     fo.write('%s,%s,%s' % (keySize, privateKey[0], privateKey[1]))
     fo.close()
+
+def displaykeys(pubKey, privKey):
+    fo = open(pubKey, 'r')
+    values = fo.readline().strip().split(',')
+    print('##########')
+    print('PUBLIC KEY')
+    print('##########')
+    print('n: ', values[1])
+    print('e: ', values[2])
+    fo.close()
+    fo = open(privKey, 'r')
+    values = fo.readline().strip().split(',')
+    print('##########')
+    print('PRIVATE KEY')
+    print('##########')
+    print('n: ', values[1])
+    print('d: ', values[2])
+    fo.close()
+

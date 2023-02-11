@@ -5,6 +5,9 @@ keySize = 512
 # A higher value will increase probability of correct isPrime() result
 acc = 5 
 choice = 0
+encryptMsgs = 'encryptedMessages.txt'
+pubKey = 'publickey.txt'
+privKey = 'privatekey.txt'
 
 while choice < 1 or choice > 3:
     print('Which user are you: ')
@@ -21,7 +24,7 @@ while choice < 1 or choice > 3:
             choice = int(input('Enter Choice: '))
             if choice == 1: # Send and encrypted message
                 message = (input('Enter a message: '))
-                manageFiles.genMessFiles(keyCrypt.encryptMessage(message.encode('utf-8')))
+                manageFiles.genMsgFiles(keyCrypt.encryptMessage(message.encode('utf-8'), pubKey),encryptMsgs)
                 print('Encryption complete. Message sent')            
                 choice = 1
             elif choice == 2: # Authenticate a digital signature
@@ -44,27 +47,35 @@ while choice < 1 or choice > 3:
             print('5. Exit')
             choice = int(input('Enter Choice: '))
             if choice == 1: # Decrypt a recieved message
-                messNum = manageFiles.getMessCount()
-                if messNum != 0:
-                    print('You have ', messNum, ' messages:' )
-                    manageFiles.getMessLen(messNum)
+                msgNum = manageFiles.getMsgCount(encryptMsgs)
+                if msgNum != 0:
+                    print('You have ', msgNum, ' messages:' )
+                    manageFiles.getMsgLen(msgNum, encryptMsgs)
                     choice = int(input('Enter Choice: '))
-                    print(keyCrypt.decryptMessage(choice))
-                    manageFiles.delMess(choice, messNum)
+                    print('Decrypted message: ', keyCrypt.decryptMessage(choice))
+                    manageFiles.delMsg(choice, msgNum, encryptMsgs)
                 else:
                     print('You have zero messages')
-                choice = 2 # Digitally sign a message
-            elif choice == 2:
-                #message = input('enter a message')
+                choice = 2 
+            elif choice == 2: # Digitally sign a message
+                message = input('enter a message')
                 #Sign and send message
-                 choice = 2
+                choice = 2
             elif choice == 3: # Show the keys
-                #display both private and public keys
+                keyGen.displaykeys(pubKey, privKey)
                 choice = 2
             elif choice == 4: # Generate a new set of keys
-                name = input('Enter a name for the keys: ')
-                keyGen.genKeyFiles(name, keySize, acc)
-                print('Keys Created.')
-                choice = 2    
+                if manageFiles.getMsgCount(encryptMsgs) > 0:
+                    ui = input('All remaining messages will no longer be valid and will be deleted. Continue? (Y/N): ')     
+                    if ui == 'Y' or ui == 'y':
+                        fo = open(encryptMsgs, 'r+')
+                        fo.truncate(0)
+                        fo.close()
+                        keyGen.genKeyFiles(keySize, acc)
+                        print('Keys Created.')
+                else:
+                    keyGen.genKeyFiles(keySize, acc)
+                    print('Keys Created.')
+                choice = 2
         elif choice == 3: # Exit
-            sys.exit('Program Exited')
+                    sys.exit('Program Exited')

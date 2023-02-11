@@ -1,5 +1,5 @@
-def genMessFiles(cypher):
-    fo = open('encryptedMessages.txt', 'a')
+def genMsgFiles(cypher, fileName):
+    fo = open(fileName, 'a')
     i = 1
     for item in cypher:
         if i == len(cypher):
@@ -10,25 +10,25 @@ def genMessFiles(cypher):
     fo.write('\n')
     fo.close()
 
-def getMessCount():
-    fo = open('encryptedMessages.txt', 'r')
+def getMsgCount(fileName):
+    fo = open(fileName, 'r')
     x = len(fo.readlines())
     fo.close()
     return x
 
-def getMessLen(numMess):
-    fo = open('encryptedMessages.txt', 'r')
-    for x in range (1, (numMess + 1)):
+def getMsgLen(msgNum, fileName):
+    fo = open(fileName, 'r')
+    for x in range (1, (msgNum + 1)):
         values = fo.readline().strip().split(',')
         print(x, '. (length = ', len(values), ')')
     fo.close()
 
-def delMess(choice, messNum):
-    fo = open('encryptedMessages.txt', 'r')
+def delMsg(choice, fileName):
+    fo = open(fileName, 'r')
     content = fo.readlines()
     i = 0
     fo.close()
-    fo = open('encryptedMessages.txt', 'w')
+    fo = open(fileName, 'w')
     for line in content:
         if i != choice-1:
             fo.write(line)
