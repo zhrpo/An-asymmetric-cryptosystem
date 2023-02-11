@@ -1,4 +1,4 @@
-import sys, random, keyGen, keyCrypt
+import sys, random, keyGen, keyCrypt, manageFiles
 
 # Size of key in bits
 keySize = 512
@@ -11,19 +11,17 @@ while choice < 1 or choice > 3:
     print('1. Public User')
     print('2. Key Owner')
     print('3. Exit Program')
-    choice = int(input('Enter Choice (1, 2, or 3): '))
+    choice = int(input('Enter Choice: '))
     while choice > 0 and choice < 4: 
         if choice == 1: # Public User
             print('As Public User, you have the following choices:')
             print('1. Send an encrypted message')
             print('2. Authenticate a digital signature')
             print('3. Exit')
-            choice = int(input('Enter Choice (1, 2, or 3): '))
+            choice = int(input('Enter Choice: '))
             if choice == 1: # Send and encrypted message
-                message = (input('Enter a message:'))
-                # Encrypt and send message
-                print(message)
-                print(keyCrypt.encryptMessage(message.encode('utf-8')))
+                message = (input('Enter a message: '))
+                manageFiles.genMessFiles(keyCrypt.encryptMessage(message.encode('utf-8')))
                 print('Encryption complete. Message sent')            
                 choice = 1
             elif choice == 2: # Authenticate a digital signature
@@ -44,22 +42,17 @@ while choice < 1 or choice > 3:
             print('3. Show the keys')
             print('4. Generate a new set of keys')
             print('5. Exit')
-            choice = int(input('Enter Choice (1, 2, 3, 4, or 5): '))
+            choice = int(input('Enter Choice: '))
             if choice == 1: # Decrypt a recieved message
-                message = 'Hi'.encode('utf-8')
-                cypher = (keyCrypt.encryptMessage(message))
-                print(cypher)
-                #print(keyCrypt.decryptMessage(cypher))
-                cypher = keyCrypt.decryptMessage(cypher)
-                print(cypher)
-                #if #ofencryptedmessages == 0 
-                    #print('No messages to decrypt.')
-                #else
-                    #for int i = 0 i < #ofencryptedmessages ; i++
-                        #display messages
-                #choice = input('Enter Choice')
-                #decrypt message
-                #display decrypted message
+                messNum = manageFiles.getMessCount()
+                if messNum != 0:
+                    print('You have ', messNum, ' messages:' )
+                    manageFiles.getMessLen(messNum)
+                    choice = int(input('Enter Choice: '))
+                    print(keyCrypt.decryptMessage(choice))
+                    manageFiles.delMess(choice, messNum)
+                else:
+                    print('You have zero messages')
                 choice = 2 # Digitally sign a message
             elif choice == 2:
                 #message = input('enter a message')
