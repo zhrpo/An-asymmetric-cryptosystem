@@ -57,7 +57,7 @@ while choice < 1 or choice > 3:
                 msgNum = manageFiles.getMsgCount(encryptMsgs)
                 if msgNum != 0:
                     print('You have ', msgNum, ' messages:' )
-                    manageFiles.getMsgLen(encryptMsgs)
+                    manageFiles.getMsgLen(msgNum,encryptMsgs)
                     choice = int(input('Enter Choice: '))
                     print('Decrypted message: ', keyCrypt.decryptMessage((choice), privKey, encryptMsgs))
                     manageFiles.delMsg(choice, encryptMsgs)
