@@ -10,6 +10,25 @@ def genMsgFiles(cypher, fileName):
     fo.write('\n')
     fo.close()
 
+def genSigMsg(message, fileName, siganture):
+    fo = open(fileName, 'a')
+    i = 1
+    fo.write('%s,' % message)
+    for item in siganture:
+        if i == len(siganture):
+            fo.write('%s' % item)
+        else:
+            fo.write('%s,' % item)
+        i += 1
+    fo .write('\n')
+    fo.close
+
+def getSig(sigNum, fileName):
+    fo = open(fileName, 'r')
+    for i in range(0, sigNum):
+        value = fo.readline().strip().split(',')
+        print(str(i+1)+'.', value[0])
+
 def getMsgCount(fileName):
     fo = open(fileName, 'r')
     x = len(fo.readlines())

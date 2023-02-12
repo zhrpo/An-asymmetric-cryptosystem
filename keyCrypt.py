@@ -1,32 +1,57 @@
-def encryptMessage(message, fileName):
-    fo = open(fileName , 'r')
+def encryptMessage(message, key):
+    fo = open(key, 'r')
     values = fo.readline().strip().split(',')
-    n = values[1] # Changed because values[0] equals keySize
-    e = values[2]
+    n = values[1]
+    e_or_d = values[2]
     fo.close()
     cypher= []
     for x in range(len(message)):
-        to_cypher = pow(message[x], int(e), int(n))
+        to_cypher = pow(message[x], int(e_or_d), int(n))
         cypher.append(to_cypher)
     return cypher
-    #return to_cypher
 
-# Copy of function above 
-def decryptMessage(choice, fileName):
-    fo = open(fileName , 'r')
+def decryptMessage(choice, key, msg):
+    fo = open(key , 'r')
     values = fo.readline().strip().split(',')
     n = values[1]
-    d = values[2]
+    e_or_d = values[2]
     fo.close()
-    fo = open('encryptedMessages.txt')
-    for i in range (1, choice + 1):
-        if i == choice:
-            cypher = fo.readline().strip().split(',')
-        else:
-            fo.readline()
+    fo = open(msg)
+    if choice != 1:
+        for i in range (1, choice+1):
+            if i == choice:
+                cypher = fo.readline().strip().split(',')
+            else:
+                fo.readline()
+    else:
+        cypher = fo.readline().strip().split(',')
     fo.close
     message = ""
     for x in range(len(cypher)):
-        to_message= pow(int(cypher[x]), int(d), int(n))
+        to_message= pow(int(cypher[x]), int(e_or_d), int(n))
         message += chr(to_message)
     return str(message)
+
+def verify(choice, key, sig):
+    fo = open(key , 'r')
+    values = fo.readline().strip().split(',')
+    n = values[1]
+    e_or_d = values[2]
+    fo.close()
+    fo = open(sig)
+    if choice != 1:
+        for i in range (1, choice+1):
+            if i == choice:
+                cypher = fo.readline().strip().split(',')
+            else:
+                fo.readline()
+    else:
+        cypher = fo.readline().strip().split(',')
+    orig_sig = cypher[0]
+    cypher.pop(0)
+    fo.close
+    message = ""
+    for x in range(len(cypher)):
+        to_message= pow(int(cypher[x]), int(e_or_d), int(n))
+        message += chr(to_message)
+    return (orig_sig == message)
