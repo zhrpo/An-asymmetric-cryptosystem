@@ -1,5 +1,6 @@
 import sys, random, keyGen, keyCrypt, manageFiles
 
+#comment
 # Size of key in bits
 keySize = 512
 # A higher value will increase probability of correct isPrime() result
@@ -122,4 +123,4 @@ while choice < 1 or choice > 3:
                     print('Keys Created.')
                 choice = 2
         elif choice == 3: # Exit
-                    sys.exit('Program Exited')
+            sys.exit('Program Exited')
