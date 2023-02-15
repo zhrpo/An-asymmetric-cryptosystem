@@ -90,4 +90,4 @@ while choice < 1 or choice > 3:
                     print('Keys Created.')
                 choice = 2
         elif choice == 3: # Exit
-                    sys.exit('Program Exited')
+            sys.exit('Program Exited')
