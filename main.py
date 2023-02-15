@@ -15,18 +15,40 @@ while choice < 1 or choice > 3:
     print('1. Public User')
     print('2. Key Owner')
     print('3. Exit Program')
-    choice = int(input('Enter Choice: '))
+    while True:
+        try: 
+            choice = int(input('Enter Choice: '))
+            if choice < 0 or choice > 3:
+                print("\nERROR: Please select value between 1-3.")
+
+        except ValueError:
+            print("\nERROR: Please select value between 1-3.\n")
+            continue
+        else:
+            break
+        
+            
     while choice > 0 and choice < 4: 
         if choice == 1: # Public User
             print('As Public User, you have the following choices:')
             print('1. Send an encrypted message')
             print('2. Authenticate a digital signature')
             print('3. Exit')
-            choice = int(input('Enter Choice: '))
+            while True:
+                try: 
+                    choice = int(input('Enter Choice: '))
+                    if choice < 1 or choice > 3:
+                        print("\nERROR: Please select value between 1-3.")
+
+                except ValueError:
+                    print("\nERROR: Please select value between 1-3.\n")
+                    continue
+                else:
+                    break
             if choice == 1: # Send and encrypted message
                 message = (input('Enter a message: '))
                 manageFiles.genMsgFiles(keyCrypt.encryptMessage(message.encode('utf-8'), pubKey),encryptMsgs)
-                print('Encryption complete. Message sent')            
+                print('Encryption complete. Message sent')           
                 choice = 1
             elif choice == 2: # Authenticate a digital signature
                 sigNum = manageFiles.getMsgCount(signedMsgs)
@@ -47,12 +69,22 @@ while choice < 1 or choice > 3:
                 choice = 4
         elif choice == 2: # Key Owner
             print('As Key Owner, you have the following choices:')
-            print('1. Decrypt a recieved message')
+            print('1. Decrypt a received message')
             print('2. Digitally sign a message')
             print('3. Show the keys')
             print('4. Generate a new set of keys')
             print('5. Exit')
-            choice = int(input('Enter Choice: '))
+            while True:
+                try: 
+                    choice = int(input('Enter Choice: '))
+                    if choice < 1 or choice > 5:
+                        print("\nERROR: Please select value between 1-5.")
+
+                except ValueError:
+                    print("\nERROR: Please select value between 1-5.\n")
+                    continue
+                else:
+                    break
             if choice == 1: # Decrypt a recieved message
                 msgNum = manageFiles.getMsgCount(encryptMsgs)
                 if msgNum != 0:
