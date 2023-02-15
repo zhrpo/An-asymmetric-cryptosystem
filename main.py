@@ -1,5 +1,6 @@
 import sys, random, keyGen, keyCrypt, manageFiles
 
+#comment
 # Size of key in bits
 keySize = 512
 # A higher value will increase probability of correct isPrime() result
