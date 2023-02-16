@@ -1,3 +1,6 @@
+# Encrypts message using public key
+# Also signs a message using private key
+# Fast Modular Exponentiation
 def encryptMessage(message, key):
     fo = open(key, 'r')
     values = fo.readline().strip().split(',')
@@ -10,6 +13,8 @@ def encryptMessage(message, key):
         cypher.append(to_cypher)
     return cypher
 
+# Decrypts message using private key
+# Fast Modular Exponentiation
 def decryptMessage(choice, key, msg):
     fo = open(key , 'r')
     values = fo.readline().strip().split(',')
@@ -32,6 +37,8 @@ def decryptMessage(choice, key, msg):
         message += chr(to_message)
     return str(message)
 
+# Verifies a signature using public key
+# Fast Modular Exponentiation
 def verify(choice, key, sig):
     fo = open(key , 'r')
     values = fo.readline().strip().split(',')

@@ -2,24 +2,18 @@ import math, random, os, sys, testPrime
 
 # Extended Euclidean Algorithm
 def egcd(a, b):
-    x = 0
-    y = 1
-    lx = 1
-    ly = 0
-    oa = a
-    ob = b
-
+    x,y,x1,y1,oa,ob = 0,1,1,0,a,b
     while b != 0:
         q = a // b
         q = a // b
         (a, b) = (b, a % b)
-        (x, lx) = ((lx - (q * x)), x)
-        (y, ly) = ((ly - (q * y)), y)
-    if lx < 0:
-        lx += ob
-    if ly < 0:
-        ly += oa
-    return a, lx, ly
+        (x, x1) = ((x1 - (q * x)), x)
+        (y, y1) = ((y1 - (q * y)), y)
+    if x1 < 0:
+        x1 += ob
+    if y1 < 0:
+        y1 += oa
+    return a, x1, y1
 
 # Modular inverse
 def modInv(a,m):
@@ -57,6 +51,7 @@ def genKeyFiles(keySize, acc):
     fo.write('%s,%s,%s' % (keySize, privateKey[0], privateKey[1]))
     fo.close()
 
+# Displays Key pair 
 def displaykeys(pubKey, privKey):
     fo = open(pubKey, 'r')
     values = fo.readline().strip().split(',')
@@ -74,4 +69,3 @@ def displaykeys(pubKey, privKey):
     print('n: ', values[1])
     print('d: ', values[2])
     fo.close()
-

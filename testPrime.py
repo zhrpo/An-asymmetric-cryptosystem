@@ -8,13 +8,11 @@ def isPrime(num, acc):
             return False
     return True
 
-
 # Generates large numbers to be tested if prime
 def generateLargePrime(keySize, acc):
     while True:
         num = random.randrange(2**(keySize-1), 2**(keySize))
-        #if isPrime(num, acc):
-        #    return num
+
         if isPrime(num, acc):
             return num
 

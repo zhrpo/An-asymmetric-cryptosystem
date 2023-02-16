@@ -1,3 +1,4 @@
+# Writes encrypted messages to file
 def genMsgFiles(cypher, fileName):
     fo = open(fileName, 'a')
     i = 1
@@ -10,6 +11,7 @@ def genMsgFiles(cypher, fileName):
     fo.write('\n')
     fo.close()
 
+# Writes message and signature to file
 def genSigMsg(message, fileName, siganture):
     fo = open(fileName, 'a')
     i = 1
@@ -23,18 +25,22 @@ def genSigMsg(message, fileName, siganture):
     fo .write('\n')
     fo.close
 
+# Displays all signatures from file
 def getSig(sigNum, fileName):
     fo = open(fileName, 'r')
     for i in range(0, sigNum):
         value = fo.readline().strip().split(',')
         print(str(i+1)+'.', value[0])
 
+# Returns the number of lines on a file
+# used for creating options for user
 def getMsgCount(fileName):
     fo = open(fileName, 'r')
     x = len(fo.readlines())
     fo.close()
     return x
 
+# Displays the length of all messagages on a file
 def getMsgLen(msgNum, fileName):
     fo = open(fileName, 'r')
     for x in range (1, (msgNum + 1)):
@@ -42,6 +48,7 @@ def getMsgLen(msgNum, fileName):
         print(x, '. (length = ', len(values), ')')
     fo.close()
 
+# Removes the chosen message or signature from file
 def delMsg(choice, fileName):
     fo = open(fileName, 'r')
     content = fo.readlines()

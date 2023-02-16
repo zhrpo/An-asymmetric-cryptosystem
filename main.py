@@ -4,12 +4,14 @@ import sys, random, keyGen, keyCrypt, manageFiles
 keySize = 512
 # A higher value will increase probability of correct isPrime() result
 acc = 5 
-choice = 0
+
+# Files that contain either messages or keys
 encryptMsgs = 'encryptedMessages.txt'
 signedMsgs = 'signedMessages.txt'
 pubKey = 'publickey.txt'
 privKey = 'privatekey.txt'
 
+choice = 0
 while choice < 1 or choice > 3:
     print('Which user are you: ')
     print('1. Public User')
@@ -20,14 +22,11 @@ while choice < 1 or choice > 3:
             choice = int(input('Enter Choice: '))
             if choice < 0 or choice > 3:
                 print("\nERROR: Please select value between 1-3.")
-
         except ValueError:
             print("\nERROR: Please select value between 1-3.\n")
             continue
         else:
             break
-        
-            
     while choice > 0 and choice < 4: 
         if choice == 1: # Public User
             print('As Public User, you have the following choices:')
@@ -39,7 +38,6 @@ while choice < 1 or choice > 3:
                     choice = int(input('Enter Choice: '))
                     if choice < 1 or choice > 3:
                         print("\nERROR: Please select value between 1-3.")
-
                 except ValueError:
                     print("\nERROR: Please select value between 1-3.\n")
                     continue
@@ -79,7 +77,6 @@ while choice < 1 or choice > 3:
                     choice = int(input('Enter Choice: '))
                     if choice < 1 or choice > 5:
                         print("\nERROR: Please select value between 1-5.")
-
                 except ValueError:
                     print("\nERROR: Please select value between 1-5.\n")
                     continue
@@ -106,6 +103,8 @@ while choice < 1 or choice > 3:
                 keyGen.displaykeys(pubKey, privKey)
                 choice = 2
             elif choice == 4: # Generate a new set of keys
+                # New keys will not be able to decrypt messages or verify signatures
+                # Due to this, all existing messages and signatures will be removed upon generating new keys
                 if manageFiles.getMsgCount(encryptMsgs) > 0:
                     ui = input('All remaining messages and signatures will no longer be valid and will be deleted. Continue? (Y/N): ')     
                     if ui == 'Y' or ui == 'y':
