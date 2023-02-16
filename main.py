@@ -105,7 +105,7 @@ while choice < 1 or choice > 3:
             elif choice == 4: # Generate a new set of keys
                 # New keys will not be able to decrypt messages or verify signatures
                 # Due to this, all existing messages and signatures will be removed upon generating new keys
-                if manageFiles.getMsgCount(encryptMsgs) > 0:
+                if manageFiles.getMsgCount(encryptMsgs) > 0 or manageFiles.getMsgCount(signedMsgs) > 0:
                     ui = input('All remaining messages and signatures will no longer be valid and will be deleted. Continue? (Y/N): ')     
                     if ui == 'Y' or ui == 'y':
                         fo = open(encryptMsgs, 'r+')
