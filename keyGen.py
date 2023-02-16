@@ -1,7 +1,6 @@
 import math, random, os, sys, testPrime
 
 # Extended Euclidean Algorithm
-# Time Complexity: O(log(max(A,B)))
 def egcd(a, b):
     x = 0
     y = 1
