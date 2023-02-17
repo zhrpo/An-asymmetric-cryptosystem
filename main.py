@@ -1,3 +1,6 @@
+# Zachary Harp
+# Michael Iwamura
+# Ryan Cleveland
 import sys, random, keyGen, keyCrypt, manageFiles
 
 # Size of key in bits
